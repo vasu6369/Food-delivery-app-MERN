@@ -1,0 +1,134 @@
+.carousel-caption.left-aligned{
+  left: 5%; 
+  right: auto; 
+  text-align: left;
+  bottom: 30px;
+}
+.search{
+  width: 80%;  
+  box-shadow: 0 0 10px 1px #3f3f3f;
+  border-radius: 10px;
+}
+.food-items{
+  box-shadow: 7px 7px 8px 1px #343434;
+  transition: ease 0.3s;
+}
+.food-items:hover{
+  transform: scale(1.03);
+  
+}
+.cart-item:hover{
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+.nav-link.active {
+  font-weight: bold;
+  color: #000;
+  border-bottom: 2px solid #000;
+
+}
+.navbar-nav .nav-link:hover {
+  text-decoration: none;
+  color: red; 
+}
+.menu-container{
+  animation: cyclic-scroll 30s linear infinite;
+}
+.menu-container::-webkit-scrollbar{
+  display: none;
+}
+.menu-container-total{
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.menu-item {
+  flex: none;
+  margin: 0 15px;
+  text-align: center;
+}
+@keyframes cyclic-scroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.add:hover{
+background-color: green;
+color:#fff;
+}
+
+.profile-container {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #007bff;
+  margin-bottom: 10px;
+}
+
+.profile-input {
+  width: 90%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.profile-input:disabled {
+  background-color: #f0f0f0;
+  color: #666;
+  border: none;
+}
+
+.edit-btn, .change-password-btn, .save-password-btn {
+  width: 90%;
+  margin: 10px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.change-password-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-password-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-btn:hover, .change-password-btn:hover, .save-password-btn:hover {
+  opacity: 0.8;
+}
+
+.password-section {
+  margin-top: 10px;
+}
+
+
+
+
