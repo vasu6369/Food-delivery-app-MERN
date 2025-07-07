@@ -12,8 +12,8 @@ const StarRating = ({ rating, setRating }) => {
           size={24}
           className="cursor-pointer"
           color={(hover || rating) >= star ? "#ffc107" : "#e4e5e9"}
-          onClick={() => setRating(star)}         // store int value
-          onMouseEnter={() => setHover(star)}     // animate on hover
+          onClick={() => setRating(star)}        
+          onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(null)}
           style={{ transition: "color 0.2s ease-in-out" }}
         />

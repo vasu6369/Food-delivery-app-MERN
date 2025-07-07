@@ -6,10 +6,11 @@ const userrouter=require("./router/userrouter");
 const cartrouter = require("./router/cartrouter");
 const wishrouter=require("./router/wishrouter");
 const processorder=require("./controllers/ordercontroller");
+require('dotenv').config();
 connectDB();
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -30,5 +31,5 @@ app.get("/", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Server started`);
+  console.log(`Server started at port ${port}`);
 });

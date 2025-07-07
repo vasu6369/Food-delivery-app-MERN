@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { StoreContext } from '../context/Context'
-import { FaTimes } from 'react-icons/fa';
 
 export default function Whislist() {
     const { fooditems, whishlist, toggleWhishlist } = useContext(StoreContext);

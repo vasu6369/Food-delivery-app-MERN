@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState,useRef } from "react";
-import { toast, Zoom } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios'
 export const StoreContext = createContext();
+import { BASE_URL } from "../../config";
 
 export const StoreContextProvider = (props) => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -19,7 +20,7 @@ export const StoreContextProvider = (props) => {
   };
 
   const fetchfood = async () => {
-    const foodlist = await axios.get('http://localhost:8000/foods/list');
+    const foodlist = await axios.get(`${BASE_URL}/foods/list`);
     if (foodlist.data.success) {
       setList(foodlist.data.data);
     }
@@ -42,7 +43,7 @@ useEffect(() => {
 
   const getdetails = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/user/getdetails", { _id: user._id });
+      const res = await axios.post(`${BASE_URL}/user/getdetails`, { _id: user._id });
       if (res.data.success) {
         console.log("context ", res.data.user.cart);
         localStorage.setItem("user",JSON.stringify(res.data.user));
@@ -59,7 +60,7 @@ useEffect(() => {
   const fetchOrders = async (orders) => {
     if(orders.length>0){
 try {
-    const res = await axios.post("http://localhost:8000/user/getorders", {
+    const res = await axios.post(`${BASE_URL}/user/getorders`, {
       
       orderIds: orders
     });
@@ -82,7 +83,7 @@ try {
 
   const signup = async (details) => {
     try {
-      const res = await axios.post("http://localhost:8000/user/signup", details);
+      const res = await axios.post(`${BASE_URL}/user/signup`, details);
       return res.data;
     }
     catch (err) {
@@ -93,7 +94,7 @@ try {
 
   const login = async (details) => {
     try {
-      const res = await axios.post("http://localhost:8000/user/login", details);
+      const res = await axios.post(`${BASE_URL}/user/login`, details);
       if (res.data.success) {
         const user = res.data.user;
         localStorage.setItem('user', JSON.stringify(user))
@@ -117,7 +118,7 @@ try {
   }
   const googlelogin = async (details) => {
     try {
-      const res = await axios.post("http://localhost:8000/user/googlelogin", details);
+      const res = await axios.post(`${BASE_URL}/user/googlelogin`, details);
       if (res.data.success) {
         localStorage.setItem('user', JSON.stringify(res.data.user));
         setUser(res.data.user);
@@ -149,7 +150,7 @@ try {
       }
       else {
         const details = { _id: user._id, itemid: item._id };
-        const res = await axios.post("http://localhost:8000/cart/add", details);
+        const res = await axios.post(`${BASE_URL}/cart/add`, details);
         if (res.data.success) {
           setCartItems(res.data.cart);
           greentoasty(item.name);
@@ -168,7 +169,7 @@ try {
     }
     try {
       const details = { _id: user._id, itemid: item._id };
-      const res = await axios.post("http://localhost:8000/cart/remove", details);
+      const res = await axios.post(`${BASE_URL}/cart/remove`, details);
       if (res.data.success) {
         setCartItems(res.data.cart);
         redtoasty(item.name);
@@ -183,7 +184,7 @@ try {
   const clearItemFromCart = async (item) => {
     try {
       const details = { _id: user._id, item: item };
-      const res = await axios.post("http://localhost:8000/cart/deleteitem", details);
+      const res = await axios.post(`${BASE_URL}/cart/deleteitem`, details);
       if (res.data.success) {
         setCartItems(res.data.cart);
       }
@@ -204,7 +205,7 @@ try {
     else {
       try {
         const details = { _id: user._id, itemid: item._id };
-        const res = await axios.post("http://localhost:8000/wishlist/togglewish", details);
+        const res = await axios.post(`${BASE_URL}/wishlist/togglewish`, details);
         setWhishlist(res.data.wish);
       }
       catch (err) {
@@ -254,7 +255,7 @@ try {
 
   const updateuser = async (details) => {
     try {
-      const res = await axios.post("http://localhost:8000/user/updateuser", details);
+      const res = await axios.post(`${BASE_URL}/user/updateuser`, details);
       if (res.data.success) {
 
         localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -283,7 +284,7 @@ try {
 
   const changeuserpassword = async (details) => {
     try {
-      const res = await axios.post("http://localhost:8000/user/changepassword", details);
+      const res = await axios.post(`${BASE_URL}/user/changepassword`, details);
       if (res.data.success) {
 
         toast.success(`${res.data.msg}`, {

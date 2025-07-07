@@ -4,8 +4,10 @@ import { jwtDecode } from "jwt-decode";
 import { StoreContext } from '../context/Context';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { OAUTH_CLIENT_ID } from '../../config';
 
-const clientId = "352976357585-035ot8psubfu375c5bq6snq62007puf0.apps.googleusercontent.com";
+const clientId = OAUTH_CLIENT_ID;
+console.log(clientId);
 
 export default function Google() {
     const navigate=useNavigate();

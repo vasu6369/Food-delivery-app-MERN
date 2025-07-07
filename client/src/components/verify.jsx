@@ -3,8 +3,10 @@ import { StoreContext } from "../context/Context";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config";
 
 export default function Verify() {
+  
   const [searchParams] = useSearchParams();
   const success = searchParams.get("success");
   const navigate = useNavigate();
@@ -26,7 +28,6 @@ export default function Verify() {
       (total, item) => total + cartitems[item._id] * item.price,
       0
     );
-console.log("cart items:: ",cartitems);
 
     const orderItems = cartItems.map((item) => ({
       name: item.name,
@@ -34,22 +35,21 @@ console.log("cart items:: ",cartitems);
       image: item.url,
       quantity: cartitems[item._id],
     }));
-    console.log("order Items: ",orderItems)
     const formdata = JSON.parse(localStorage.getItem("form"));
 
     const changeOrder = async () => {
       try {
-        const res = await axios.post("http://localhost:8000/user/changeorder", {
+        const res = await axios.post(`${BASE_URL}/user/changeorder`, {
           address: formdata,
           items: orderItems,
           amount: grandTotal,
           userid: user._id,
         });
-        console.log("Order API response:", res.data);
 
         if (res.data.success) {
           localStorage.setItem("user", JSON.stringify(res.data.user));
           localStorage.removeItem("form");
+          localStorage.removeItem("cartitems");
 
           await Swal.fire({
             title: "Order Placed!",

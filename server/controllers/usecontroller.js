@@ -57,7 +57,6 @@ const googlelogin=async(req,res)=>{
 
 const changeorders = async (req, res) => {
     const { address, items, amount, userid } = req.body;
-    console.log({ address, items, amount, userid });
     try {
         const newOrder = await ordermodel.create({userid,items,amount,address,status: "Pending"});
         const updatedUser = await usermodel.findByIdAndUpdate(userid,{$push: { orders: newOrder._id },cart: {},},{ new: true });

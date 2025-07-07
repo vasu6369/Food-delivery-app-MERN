@@ -11,6 +11,7 @@ import jszip from "jszip";
 import pdfMake from "pdfmake/build/pdfmake";
 import { StoreContext } from "../context/Context";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { BASE_URL } from "../config";
 
 window.JSZip = jszip;
 window.pdfMake = pdfMake;
@@ -76,7 +77,7 @@ export default function OrdersTable() {
         setOrderStatuses((prev) => ({ ...prev, [orderId]: newStatus }));
         setOpenDropdown(null);
         try{
-            const  res=await axios.put(`http://localhost:8000/user/${orderId}/changestatus`,{newStatus});
+            const  res=await axios.put(`${BASE_URL}/user/${orderId}/changestatus`,{newStatus});
         }
         catch(err){
             console.log(err);

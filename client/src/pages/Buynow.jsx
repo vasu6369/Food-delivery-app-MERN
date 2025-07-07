@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { StoreContext } from '../context/Context';
 import { FaTimes } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL,NOMINATIM_URL } from "../../config";
+
 
 export default function Buynow() {
     const { user, cartitems, fooditems, addTocart, removefromCart,clearItemFromCart} = useContext(StoreContext);
-    const navigate = useNavigate();
-
     const cartItems = fooditems.filter(item => cartitems[item._id] > 0);
     const grandTotal = cartItems.reduce((total, item) => total + (cartitems[item._id] * item.price), 0);
 
@@ -20,7 +19,7 @@ export default function Buynow() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 const { latitude, longitude } = position.coords;
-                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                fetch(`${NOMINATIM_URL}?format=json&lat=${latitude}&lon=${longitude}`)
                     .then(response => response.json())
                     .then(data => {
                         setFormData(prev => ({ ...prev, address: data.display_name }));
@@ -51,12 +50,11 @@ export default function Buynow() {
             quantity: cartitems[item._id]
         }));
 
-        const placeorder=await axios.post("http://localhost:8000/processorder",{address:formData.address,items:orderItems,amount:grandTotal,userid:user._id});
+        const placeorder=await axios.post(`${BASE_URL}/processorder`,{address:formData.address,items:orderItems,amount:grandTotal,userid:user._id});
         if(placeorder.data.success){
             localStorage.setItem("form",JSON.stringify(formData.address))
             localStorage.setItem("cartitems",JSON.stringify(cartitems));
             window.location.replace(placeorder.data.sessionurl);
-
         }
         else{
             console.log(placeorder.data.msg);

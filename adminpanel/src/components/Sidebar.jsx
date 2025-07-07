@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for toggle
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      {/* Sidebar for Desktop */}
       <div className="bg-dark text-white d-none d-md-flex flex-column p-3 vh-100 position-fixed" style={{ width: "250px" }}>
         <h4 className="text-center">Admin Panel</h4>
         <ul className="nav flex-column">
@@ -29,7 +28,6 @@ export default function Sidebar() {
         </ul>
       </div>
 
-      {/* Sidebar Toggle Button for Mobile */}
       <button 
         className="btn btn-dark d-md-none position-fixed top-0 start-0 m-3" 
         onClick={() => setIsOpen(!isOpen)}
@@ -37,7 +35,6 @@ export default function Sidebar() {
         {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
       </button>
 
-      {/* Sidebar for Mobile */}
       <div 
         className={`bg-dark text-white position-fixed vh-100 p-3 ${isOpen ? "w-75" : "w-0"} overflow-hidden transition`} 
         style={{ top: 0, left: 0, zIndex: 1000 }}

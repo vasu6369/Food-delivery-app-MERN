@@ -1,8 +1,9 @@
 const ordermodel=require("../models/ordermodel");
 const usermodel=require("../models/usermodel");
 const Stripe=require("stripe");
-
-const stripe=new Stripe("sk_test_51QvdPw4ZsdXuJQZbWfD9PKS9gqRnDQYAkL6nEFpBTKhdJJEEom34MQpTjd1tjfentU5qSQxo0H3Xfc70a1DUrwOU00JIxkBSW4");
+require('dotenv').config();
+const REDIRECT_URL=process.env.ORDER_REDIRECT_URL;
+const stripe=new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const processorder=async(req,res)=>{
     const{address,items,amount,userid}=req.body;
@@ -21,8 +22,8 @@ const processorder=async(req,res)=>{
                     quantity: item.quantity,
                 })),
                 mode: "payment",
-                success_url: `http://localhost:5173/verify?success=true`,
-                cancel_url: "http://localhost:5173/verify?success=false",
+                success_url: `${REDIRECT_URL}/verify?success=true`,
+                cancel_url: `${REDIRECT_URL}/verify?success=false`,
             });
           res.json({success:true,sessionurl:session.url});
     }
