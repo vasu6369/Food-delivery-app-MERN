@@ -6,6 +6,7 @@ const userrouter=require("./router/userrouter");
 const cartrouter = require("./router/cartrouter");
 const wishrouter=require("./router/wishrouter");
 const processorder=require("./controllers/ordercontroller");
+const reviewrouter = require("./router/reviewrouter");
 require('dotenv').config();
 connectDB();
 
@@ -23,7 +24,7 @@ app.use("/cart",cartrouter);
 app.use("/wishlist",wishrouter);
 app.post("/processorder",processorder);
 
-
+app.use("/review",reviewrouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
