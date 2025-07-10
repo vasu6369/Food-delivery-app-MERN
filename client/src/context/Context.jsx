@@ -306,12 +306,41 @@ try {
     catch (err) {
       console.log(err);
     }
+  }
+
+  const getreviewsbyid=async(foodId)=>{
+    try{
+      const res=await axios.post(`${BASE_URL}/review/get`,{foodId});
+      if(res.data.success){
+        return res.data.data;
+      }
+      else{
+        console.log(res.data.msg);
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
 
 
+  const addreview=async(foodId,rating,comment)=>{
+    try{
+        const res=await axios.post(`${BASE_URL}/review/add`,{foodId,userId:user._id,username:user.name,rating,comment});
+        if(res.data.success){
+        return res.data.data;
+      }
+      else{
+        console.log(res.data.msg);
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   }
 
   const contextValue = {
-    fooditems, cartitems, setCartItems, addTocart, removefromCart, whishlist, toggleWhishlist, myorders, signup, login, user, handleLogout, googlelogin, clearItemFromCart, getdetails, toggleTheme, theme, setUser, updateuser, changeuserpassword
+    fooditems, cartitems, setCartItems, addTocart, removefromCart, whishlist, toggleWhishlist, myorders, signup, login, user, handleLogout, googlelogin, clearItemFromCart, getdetails, toggleTheme, theme, setUser, updateuser, changeuserpassword,getreviewsbyid,addreview
   };
 
   return (
