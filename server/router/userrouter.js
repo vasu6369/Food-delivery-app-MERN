@@ -1,12 +1,12 @@
 const express=require("express");
-const {signup,login,googlelogin,changeorders,getdetails,updateuser,changepassword,getusers,deleteuser, getorders, changestatus} =require("../controllers/usecontroller");
-
+const {changeorders,getdetails,updateuser,changepassword,getusers,deleteuser, getorders, changestatus} =require("../controllers/usecontroller");
+// login,signup,googlelogin,
 
 const userrouter=express.Router();
 
-userrouter.post("/signup",signup);
-userrouter.post("/login",login);
-userrouter.post("/googlelogin",googlelogin);
+// userrouter.post("/signup",signup);
+// userrouter.post("/login",login);
+// userrouter.post("/googlelogin",googlelogin);
 userrouter.post("/changeorder",changeorders);
 userrouter.post("/getdetails",getdetails);
 userrouter.post("/updateuser",updateuser);

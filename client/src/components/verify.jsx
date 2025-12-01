@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../config";
+import api from "../api";
 
 export default function Verify() {
   
@@ -39,7 +40,7 @@ export default function Verify() {
 
     const changeOrder = async () => {
       try {
-        const res = await axios.post(`${BASE_URL}/user/changeorder`, {
+        const res = await api.post(`/user/changeorder`, {
           address: formdata,
           items: orderItems,
           amount: grandTotal,

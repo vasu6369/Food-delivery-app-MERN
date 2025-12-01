@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { StoreContext } from '../context/Context';
 import { FaTimes } from 'react-icons/fa';
 import axios from 'axios';
+import api from '../api';
 import { BASE_URL,NOMINATIM_URL } from "../../config";
 
 
@@ -50,7 +51,7 @@ export default function Buynow() {
             quantity: cartitems[item._id]
         }));
 
-        const placeorder=await axios.post(`${BASE_URL}/processorder`,{address:formData.address,items:orderItems,amount:grandTotal,userid:user._id});
+        const placeorder=await api.post(`/processorder`,{address:formData.address,items:orderItems,amount:grandTotal,userid:user._id});
         if(placeorder.data.success){
             localStorage.setItem("form",JSON.stringify(formData.address))
             localStorage.setItem("cartitems",JSON.stringify(cartitems));

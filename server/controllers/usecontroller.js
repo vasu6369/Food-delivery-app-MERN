@@ -2,57 +2,57 @@ const usermodel=require("../models/usermodel");
 const ordermodel=require("../models/ordermodel")
 const bcrypt=require("bcrypt");
 
-const signup=async(req,res)=>{
-    const {name,email,password}=req.body;
-    try{
-        const exist=await usermodel.findOne({email});
-        if(exist){
-            return res.status(400).json({success:false,msg:"User Already Exist"});
-        }
-        const hashpass=await bcrypt.hash(password,10);
-        await usermodel.insertMany({name,email,password:hashpass});
-        res.json({success:true,msg:"Sign Success"});
-    }
-    catch(err){
-        console.log(err);
-        res.json({success:false,msg:"server Errer"});
-    }
-}
+// const signup=async(req,res)=>{
+//     const {name,email,password}=req.body;
+//     try{
+//         const exist=await usermodel.findOne({email});
+//         if(exist){
+//             return res.status(400).json({success:false,msg:"User Already Exist"});
+//         }
+//         const hashpass=await bcrypt.hash(password,10);
+//         await usermodel.insertMany({name,email,password:hashpass});
+//         res.json({success:true,msg:"Sign Success"});
+//     }
+//     catch(err){
+//         console.log(err);
+//         res.json({success:false,msg:"server Errer"});
+//     }
+// }
 
-const login=async(req,res)=>{
-    const {email,password}=req.body;
-    try{
-        const user=await usermodel.findOne({email});
-        console.log(user);
-        if(!user){
-           return res.json({success:false,msg:"User Not Exist"});
-        }
-        const passmatch=await bcrypt.compare(password,user.password);
-        if(!passmatch){
-            return res.json({success:false,msg:"Incorrect Password"});
-        }
-        res.json({success:true,user:user});
-    }
-    catch(err){
-        console.log(err);
-    }
-}
+// const login=async(req,res)=>{
+//     const {email,password}=req.body;
+//     try{
+//         const user=await usermodel.findOne({email});
+//         console.log(user);
+//         if(!user){
+//            return res.json({success:false,msg:"User Not Exist"});
+//         }
+//         const passmatch=await bcrypt.compare(password,user.password);
+//         if(!passmatch){
+//             return res.json({success:false,msg:"Incorrect Password"});
+//         }
+//         res.json({success:true,user:user});
+//     }
+//     catch(err){
+//         console.log(err);
+//     }
+// }
 
 
-const googlelogin=async(req,res)=>{
-    const {name,email,picture}=req.body;
-    try{
-        const user=await usermodel.findOne({email});
-        if(user){
-           return res.json({success:true,user:user});
-        }
-        const newuser=await usermodel.insertMany({name,email,picture});
-        res.json({success:true,user:newuser[0]});
-    }
-    catch(err){
-        console.log(err);
-    }
-}
+// const googlelogin=async(req,res)=>{
+//     const {name,email,picture}=req.body;
+//     try{
+//         const user=await usermodel.findOne({email});
+//         if(user){
+//            return res.json({success:true,user:user});
+//         }
+//         const newuser=await usermodel.insertMany({name,email,picture});
+//         res.json({success:true,user:newuser[0]});
+//     }
+//     catch(err){
+//         console.log(err);
+//     }
+// }
 
 
 const changeorders = async (req, res) => {
@@ -166,5 +166,5 @@ const changestatus=async(req,res)=>{
 }
 
 
-
-module.exports={signup,login,googlelogin,changeorders,getdetails,updateuser,changepassword,getusers,deleteuser,getorders,changestatus};
+// login,signup,googlelogin,
+module.exports={changeorders,getdetails,updateuser,changepassword,getusers,deleteuser,getorders,changestatus};
