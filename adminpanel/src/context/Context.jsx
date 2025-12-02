@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../config";
+import api from "../api"
 
 export const StoreContext = createContext();
 
@@ -11,6 +12,7 @@ export const StoreContextProvider = (props) => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
+  const [user,setUser]=useState(null);
 
   useEffect(() => {
     fetchFood();
@@ -20,7 +22,7 @@ export const StoreContextProvider = (props) => {
 
   const fetchFood = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/foods/list`);
+      const response = await api.get(`/foods/list`);
       if (response.data.success) {
         setFoodlist(response.data.data);
       } else {
@@ -33,7 +35,7 @@ export const StoreContextProvider = (props) => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/foods/listorders`);
+      const res = await api.get(`/foods/listorders`);
       if (res.data.success) {
         setOrders(res.data.data);
         setTotalOrders(res.data.data.length);
@@ -50,7 +52,7 @@ export const StoreContextProvider = (props) => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/getusers`);
+      const res = await api.get(`/user/getusers`);
       if (res.data.success) {
         setUsers(res.data.users);
         setTotalUsers(res.data.users.length); 
@@ -62,7 +64,7 @@ export const StoreContextProvider = (props) => {
 
   const handleUpdate = async (selectedFood) => {
     try {
-      const res = await axios.put(`${BASE_URL}/foods/updatefood`, selectedFood);
+      const res = await api.put(`/foods/updatefood`, selectedFood);
       if (res.data.success) {
         alert(res.data.msg);
         fetchFood();
@@ -75,7 +77,7 @@ export const StoreContextProvider = (props) => {
 
   const handleDelete = async (_id) => {
     try {
-      const res = await axios.delete(`${BASE_URL}/foods/deletefood/${_id}`);
+      const res = await api.delete(`/foods/deletefood/${_id}`);
       if (res.data.success) {
         alert(res.data.msg);
         fetchFood();
@@ -87,7 +89,7 @@ export const StoreContextProvider = (props) => {
 
   const handleAddFood = async (newFood) => {
     try {
-      const res = await axios.post(`${BASE_URL}/foods/add`, newFood);
+      const res = await api.post(`/foods/add`, newFood);
       if (res.data.success) {
         alert("Food item added successfully!");
         fetchFood();
@@ -100,7 +102,7 @@ export const StoreContextProvider = (props) => {
 
   const handleDeleteuser = async (_id) => {
     try {
-      const res = await axios.delete(`${BASE_URL}/user/deleteuser/${_id}`);
+      const res = await api.delete(`/user/deleteuser/${_id}`);
       if (res.data.success) {
         alert(res.data.msg);
         fetchUsers();
@@ -110,6 +112,48 @@ export const StoreContextProvider = (props) => {
     }
   };
 
+    const signup = async (details) => {
+    try {
+      const res = await api.post(`/auth/signup`, details);
+      return res.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  const login = async (details) => {
+    try {
+      const res = await api.post(`/auth/login`, details);
+      if (res.data.success) {
+        const user = res.data.user;
+        console.log(res);
+        localStorage.setItem('token',res.data.token);
+        localStorage.setItem('user', JSON.stringify(user))
+        setUser(user);
+      }
+      return res.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+    const googlelogin = async (details) => {
+    try {
+      const res = await api.post(`/auth/googlelogin`, details);
+      if (res.data.success) {
+        localStorage.setItem('token',res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        setUser(res.data.user);
+      }
+      return res.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   const contextValue = {
     fetchFood,
@@ -122,6 +166,9 @@ export const StoreContextProvider = (props) => {
     totalUsers,
     totalOrders,
     totalRevenue,
+    signup,
+    login,
+    googlelogin,
     handleDeleteuser
   };
 

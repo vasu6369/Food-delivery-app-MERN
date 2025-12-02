@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.2",
     "axios": "^1.8.2",
     "datatables.net": "^2.2.2",
     "datatables.net-buttons": "^3.2.2",
@@ -21,12 +22,14 @@
     "jspdf": "^3.0.0",
     "jspdf-autotable": "^5.0.2",
     "jszip": "^3.10.1",
+    "jwt-decode": "^4.0.0",
     "pdfmake": "^0.2.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.3.0",
-    "recharts": "^2.15.1"
+    "recharts": "^2.15.1",
+    "sweetalert2": "^11.26.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
