@@ -6,6 +6,10 @@ import Fooddetails from "./pages/Fooddetails";
 import OrderDetails from "./pages/OrderDetails";
 import UserDetails from "./pages/Userdetails";
 import Analytics from "./pages/Analytics";
+import Google from "./components/google";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+
 
 function App() {
   return (
@@ -19,6 +23,8 @@ function App() {
           <Route path="/orderdetails" element={<OrderDetails />} />
           <Route path="/userdetails" element={<UserDetails />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>} />
         </Routes>
       </div>
     </div>
